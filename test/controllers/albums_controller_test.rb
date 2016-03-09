@@ -40,5 +40,12 @@ class AlbumsControllerTest < ActionController::TestCase
   end
 
   # TODO album destroy tests
+  test "should destroy album" do
+    assert_difference('Album.count', -1) do
+      xhr :delete, :destroy, id: @album
+    end
+
+    assert_response :success
+  end
   
 end

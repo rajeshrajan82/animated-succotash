@@ -37,3 +37,11 @@
    width: 100%;
    color: #fff;
  }
+ .grid {
+     font-size: 18px;
+     text-align: center;
+ }
+ 
+ .mgt10 {
+     margin-top: 10px;
+ }

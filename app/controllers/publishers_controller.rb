@@ -1,14 +1,16 @@
 class PublishersController < ApplicationController
-  before_action :set_publisher, only: [:show, :edit, :update, :destroy]
+  before_action :set_publisher, only: [:edit, :update, :destroy]
 
   respond_to :html
+  respond_to :json, only: [:index, :show]
 
   def index
-    @publishers = Publisher.all
+    @publishers = Publisher.order("id DESC")
     respond_with(@publishers)
   end
 
   def show
+    @publisher = Publisher.includes(:albums).find(params[:id])
     respond_with(@publisher)
   end
 

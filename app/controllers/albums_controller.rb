@@ -1,14 +1,16 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: [:show, :edit, :update, :destroy]
+  before_action :set_album, only: [:edit, :update, :destroy]
 
   respond_to :html
+  respond_to :json, only: [:index, :show]
 
   def index
-    @albums = Album.all
+    @albums = Album.includes(:publisher).order("id DESC")
     respond_with(@albums)
   end
 
   def show
+    @album = Album.includes([:publisher, :songs]).find(params[:id])
     respond_with(@album)
   end
 
@@ -33,7 +35,6 @@ class AlbumsController < ApplicationController
 
   def destroy
     @album.destroy
-    respond_with(@album)
   end
 
   private

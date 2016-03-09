@@ -1,14 +1,16 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :set_song, only: [:edit, :update, :destroy]
 
   respond_to :html
+  respond_to :json, only: [:index, :show]
 
   def index
-    @songs = Song.all
+    @songs = Song.includes([:artist, :album]).order("id DESC")
     respond_with(@songs)
   end
 
   def show
+    @song = Song.includes([:artist, :album]).find(params[:id])
     respond_with(@song)
   end
 
